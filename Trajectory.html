@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<body>
+<canvas id="canvas" style="width:1000px;height:500px;background-color: rgb(225,225,225);"></canvas>
+<p>Find the position of particle in a projectile motion</p>
+<p>velocity:</P><input id="v" ></input>
+<p>angle with horizontal:</p><input id="theta"></input>
+<button type="button" onclick="myFunc()">submit</button><br/>
+</body>
+
+<script src="gravityformula.js"></script>
+<script>
+
+function myFunc(){
+  var canvas = document.getElementById('canvas').getContext('2d');
+  var t = 0;
+  var v = document.getElementById('v').value;
+  var theta = document.getElementById('theta').value;
+  var id = setInterval(start, 100);
+
+  //This start() function runs same code every 100millisecond
+  function start(){
+    // increasing t by 0.1 after every 0.1sec(100millisecond) and calculating x and y positions at that given movement
+    t += 0.1;
+    var y = yPos(v, theta*3.14/180, t);
+    var x = xPos(v, theta*3.14/180, t);
+    canvas.fillStyle;
+    canvas.fillRect(x, 147 - y, 2, 2);
+    //This writes the position of that particle
+    document.body.appendChild(document.createElement("P").appendChild(document.createTextNode("("+ x + ", " + y +") at "+ Math.round(t*10)/10 +" sec  AT velocity:" + v + "  AT angle:" + theta + "' with Horizontal" )));
+    document.body.appendChild(document.createElement("BR"));
+    document.body.appendChild(document.createElement("DIV"));
+    //stoping the function when particle fall back
+    if(y < 0){clearInterval(id); document.body.appendChild(document.createElement("BR"));}
+  }
+}
+
+</script>
+</html>
